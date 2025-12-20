@@ -225,85 +225,7 @@ cd emt-linux-ecpt
 
 You can find similar files in `/data/EMT/ecpt/running`.
 
-### FPT setup 
-
-#### QEMU Setup
-<!-- Clone QEMU and configure ECPT -->
-<!-- ```bash
-# get out of emt-linux-radix repo
-cd ..; 
-git clone https://github.com/xlab-uiuc/qemu-emt.git qemu-fpt;
-cd qemu-fpt;
-git checkout execlog_addr_dump;
-
-./configure_fpt_execlog.sh
-make -j `nproc`
-``` -->
-
-```bash
-# Clone QEMU repo and build with FPT softmmu support
-./setup/setup_qemu_fpt.sh
-```
-Output folder `qemu-fpt`.
-
-#### Linux Setup
-
-```bash
-# Clone Linux repo and build EMT-Linux with FPT (L4L3 L2L1) MMU driver
-./setup/setup_linux_fpt_L4L3L2L1.sh
-```
-Output folder `emt-linux-fpt-L4L3L2L1`.
-
-<!-- Clone emt-linux-fpt repo and qemu-fpt repo under the **same** folder.
-```bash
-# get out of QEMU repo  
-cd ..;
-
-git clone https://github.com/xlab-uiuc/emt-linux.git emt-linux-fpt;
-cd emt-linux-fpt;
-git checkout FPT;
-cp configs/general_interface_FPT_config .config;
-
-make olddefconfig
-make -j `nproc` LOCALVERSION=-gen-FPT
-``` -->
-
-#### Time to run [Est. time 2 hours]
-
-```bash
-cd emt-linux-fpt-L4L3L2L1
-# dry run to print the command to execute.
-# Double check architecture, thp config, image path, output directory 
-./run_bench.sh --arch fpt --flavor L4L3_L2L1 --thp never --out /data/EMT --dry
-
-# real run
-./run_bench.sh --arch fpt --flavor L4L3_L2L1 --thp never --out /data/EMT
-```
-
-By default FPT runs with L4L3 and L2L1 flatenned. If you wish to try L3L2 folding.
-
-```bash
-# Clone Linux repo and build EMT-Linux with FPT (L4L3 L2L1) MMU driver
-./setup/setup_linux_fpt_L3L2.sh
-```
-Output folder `emt-linux-fpt-L3L2`.
-
-
-<!-- ```bash
-scripts/config --enable CONFIG_X86_64_FPT_L3L2
-scripts/config --disable CONFIG_X86_64_FPT_L4L3L2L1
-
-make -j `nproc` LOCALVERSION=-gen-FPT
-``` -->
-
-Then run benchmark with 
-```bash
-# real run
-cd emt-linux-fpt-L3L2;
-./run_bench.sh --arch fpt --flavor L3L2 --thp never --out /data/EMT
-```
-
-## Procedures to Reproduce Fig 16 and Fig 20 (Appendix)
+## Procedures to Reproduce Fig 16 and Fig 18
 
 ### Prequisite
 Simulation Setup and Minimal Working Example
@@ -319,12 +241,14 @@ We aim to validate the following claims:
 
 ### Data Collection
 
-Due to the long time to simulate all the benchmarks, 
+<!-- Due to the long time to simulate all the benchmarks, 
 we provide a script to run three representative benchmarks: `graphbig_bfs`, `gups`, and `redis`. 
-It collects data for two archictures (radix/ECPT) at two THP configurations (4KB/THP) and two application stages (running/loading)
+It collects data for two archictures (radix/ECPT) at two THP configurations (4KB/THP) and two application stages (running/loading) -->
+
+We are trying to integrate this artifact, which approached to Artifact Evaluation in OSDI'2025 and acquired all three badges (Available, Functional, and Reproduced), into the [system-intelligence-benchmark](https://github.com/sys-intelligence/system-intelligence-benchmark) to validate the its support of our artifact. For now, we only run one representative benchmark `graphbig_bfs` (one of ten available benchmarks). We provide a one-click script to run the benchmark across all configurations.
 
 > Note (MUST READ): 
-> 1. The following experiment will take about 3 - 4 days to finish, please run it ahead of time. 
+> 1. Running `graphbig_bfs` spends several hours, please run it ahead of time. For a quick sanity check, you can run `graphbig_bfs_small`, a smaller version of `graphbig_bfs`, which typically takes only a few minutes.
 > 2. Please run with tmux to avoid the script from being killed.
 > 3. Please make sure `/data` is mounted with at least 500GB space.
 One click run:
