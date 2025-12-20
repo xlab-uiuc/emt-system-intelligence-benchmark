@@ -35,7 +35,7 @@ while [[ $# -gt 0 ]]; do
             echo "Error: --input requires a non-empty argument."
             exit 1
         fi
-        input_dir="$2"
+        input_dir=$(realpath "$2")
         shift 2
         ;;
     --ipc_stats)

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-output_dir="/data/EMT"
+output_dir=$(realpath "/data/EMT")
 
 while [[ $# -gt 0 ]]; do
 	key="$1"
@@ -15,7 +15,7 @@ while [[ $# -gt 0 ]]; do
             echo "Error: --output requires a non-empty argument."
             exit 1
         fi
-        output_dir="$2"
+        output_dir=$(realpath "$2")
         shift 2
         ;;
 	*)
@@ -35,8 +35,8 @@ benchmarks=(
     # "graphbig_dfs" 
     # "graphbig_dc" 
     # "graphbig_sssp"
-    "gups"
-    "redis"
+    # "gups"
+    # "redis"
 )
 
 commands=(
@@ -47,8 +47,8 @@ commands=(
     # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dfs.sh <stage>; /shutdown;"
     # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dc.sh <stage>; /shutdown;"
     # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_sssp.sh <stage>; /shutdown;"
-    "cd rethinkVM_bench; ./run_scripts/simulation/gups.sh <stage>; /shutdown;"
-    "cd rethinkVM_bench/workloads; ./bin/bench_redis_st -- --recording-stage <stage>; /shutdown;"
+    # "cd rethinkVM_bench; ./run_scripts/simulation/gups.sh <stage>; /shutdown;"
+    # "cd rethinkVM_bench/workloads; ./bin/bench_redis_st -- --recording-stage <stage>; /shutdown;"
 )
 
 recording_stage=(
@@ -68,7 +68,7 @@ recording_stage_str_redis=(
 
 thp_config=(
     "never"
-    "always"
+    # "always"
 )
 
 archs=(
