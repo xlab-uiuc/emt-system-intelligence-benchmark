@@ -12,7 +12,7 @@ sudo apt-get install -y apt-transport-https
 sudo apt-get update
 sudo apt-get install -y bash curl git man perl perl-doc sudo wget screen vim nano software-properties-common zip unzip tar rsync
 sudo apt-get install -y python3 python3-dev python3-pip python3-venv python-is-python3
-pip3 install pandas matplotlib IPython altair vl-convert-python
+pip3 install pandas matplotlib IPython altair vl-convert-python --break-system-packages
 sudo apt install htop
 sudo apt install inkscape
 
