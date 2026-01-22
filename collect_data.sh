@@ -15,7 +15,7 @@ while [[ $# -gt 0 ]]; do
             echo "Error: --output requires a non-empty argument."
             exit 1
         fi
-        output_dir=$(realpath "$2")
+        output_dir=$2
         shift 2
         ;;
 	*)
