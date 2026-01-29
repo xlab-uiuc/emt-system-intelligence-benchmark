@@ -91,8 +91,8 @@ for arch in "${archs[@]}"; do
                 # fi
                 arch_stage_dir="${output_dir}/${arch}/${stage_str}"
                 file_prefix="${arch}_${thp}_${benchmark}_${stage_str}"
-                sudo mkdir -p $arch_stage_dir
-                sudo chmod 777 $arch_stage_dir
+                mkdir -p $arch_stage_dir
+                chmod 777 $arch_stage_dir
                 
                 echo "./run_linux_free_cmd --arch $arch --thp $thp --cmd \"$command\" --out ${arch_stage_dir}/${file_prefix}_walk_log.bin --image ${image_path} --run-dynamorio"
                 if [[ $dry_run != true ]]; then
